@@ -1,0 +1,155 @@
+<HTML>
+<TITLE>БМВ ВАН ЛАВ</TITLE>
+<BODY background="maxresdefault.jpg" style="color:white">
+<a href="index.html" ><img src="chrp.png" width="100" height="100" style="margin-top: 10px; margin-left: 10px;"></a>
+<CENTER>
+  <BR><BR>
+  <a href="index.html">BMW M3 E46</a>
+  <BR>
+  <a href="Page%202.html">Page 2</a>
+  <BR>
+  <a href="Page%203.html">Page 3</a>
+  <BR>
+  <p>Как говорил мой дед:"Я не твой дед" </p>
+  <p>//1 часть</p>
+  <div class="pulser"> </div>
+  <script language="JavaScript">
+  document.write("a. String: ")
+  let str = "Hello, World!";
+  document.write(str.length," "); // Длина строки
+  document.write(str.toUpperCase()," "); // В верхнем регистре
+  document.write(str.substring(0, 5)," "); // Подстрока
+  document.write(str.indexOf("World")," "); // Индекс подстроки
+  document.write(str.split(", ")," "); // Разделение строки
+  document.write(str.includes("Hello")," "); // Проверка на наличие
+  document.write(str.trim()," "); // Удаление пробелов
+  </script >
+  <br><br>
+  <script language="JavaScript">
+  document.write("b. Number: ")
+  let num = 42;
+  document.write(num.toFixed(2)," "); // Округление
+  document.write(Number.isInteger(num)," "); // Проверка на целое число
+  document.write(Number.parseFloat("3.14")," "); // Преобразование в число
+  document.write(num.toString()," "); // Преобразование в строку
+  document.write(Math.abs(-num)," "); // Модуль числа
+  document.write(Math.sqrt(num)," "); // Квадратный корень
+  document.write(Math.random()," "); // Случайное число
+  </script>
+  <br><br>
+  <script language="JavaScript">
+  document.write("c. Math: ")
+  document.write(Math.PI," "); // Число Пи
+  document.write(Math.max(1, 2, 3)," "); // Максимум
+  document.write(Math.min(1, 2, 3)," "); // Минимум
+  document.write(Math.pow(2, 3)," "); // Возведение в степень
+  document.write(Math.ceil(4.2)," "); // Округление вверх
+  document.write(Math.floor(4.8)," "); // Округление вниз
+  document.write(Math.round(4.5)," "); // Округление до ближайшего целого
+  </script>
+  <br><br>
+  <script language="JavaScript">
+  document.write("d. Date: ")
+  let date = new Date();
+  document.write(date.getFullYear()," "); // Год
+  document.write(date.getMonth()," "); // Месяц
+  document.write(date.getDate()," "); // День месяца
+  document.write(date.getHours()," "); // Часы
+  document.write(date.getMinutes()," "); // Минуты
+  document.write(date.getMilliseconds()," "); // Миллисекунды
+  document.write(date.toLocaleDateString()," "); // Форматированная дата
+  </script>
+  <br><br>
+  <p>//2 часть</p>
+  <form id="dataForm">
+    <input type="text" id="input1" placeholder="Введите число">
+    <input type="text" id="input2" placeholder="Результат" readonly>
+    <button type="button" id="transferButton">Перенести</button>
+</form>
+
+<script>
+document.getElementById("transferButton").addEventListener("click", () => {
+    let input1 = document.getElementById("input1").value;
+    let input2 = document.getElementById("input2");
+    
+    if (!isNaN(input1) && input1 !== "") 
+    {
+        input2.value = input1;
+        let result = Math.pow(parseFloat(input1), 2); // Пример вычисления
+        alert("Результат вычисления: "+ result);
+    } else 
+    {
+        alert("Ошибка ввода. Введите число.");
+    }
+});
+</script>
+<br><br>
+
+<p>//3 часть</p>
+<form id="studentForm">
+    <input type="text" id="name" placeholder="Фамилия">
+    <input type="number" id="score" placeholder="Баллы">
+    <button type="button" id="addStudent">Добавить студента</button>
+</form>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Баллы</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div id="summary"></div>
+
+<script>
+let students = [];
+
+document.getElementById("addStudent").addEventListener("click", () => {
+    let name = document.getElementById("name").value;
+    let score = parseFloat(document.getElementById("score").value);
+    
+    if (name && !isNaN(score)) {
+        students.push({ name, score });
+        students.sort((a, b) => a.name.localeCompare(b.name));
+        renderTable();
+    }
+});
+
+function renderTable() {
+    let tbody = document.getElementById("studentTable").querySelector("tbody");
+    tbody.innerHTML = "";
+    let totalScore = 0;
+    
+    students.forEach(student => {
+        totalScore += student.score;
+        tbody.innerHTML += `<tr><td>${student.name}</td><td>${student.score}</td></tr>`;
+    });
+    
+    let passCount = students.filter(student => student.score >= 60).length;
+    let totalStudents = students.length;
+    let maxScore = totalStudents * 100; // например, если максимальный балл за занятие — 100
+    let percent = (totalScore / maxScore) * 100 || 0;
+    
+    displaySummary(totalScore, percent, totalStudents, passCount);
+}
+
+function displaySummary(totalScore, percent, totalStudents, passCount) {
+    let summaryDiv = document.getElementById("summary");
+    summaryDiv.innerHTML = `
+        <h3>Итоги</h3>
+        <p>Сумма баллов: ${totalScore}</p>
+        <p>% от максимума: ${percent.toFixed(2)}%</p>
+        <p>Общее количество студентов: ${totalStudents}</p>
+        <p>Количество сдавших зачет: ${passCount}</p>
+        <p>${passCount > 0 ? "Зачет" : "Не зачет"}</p>
+    `;
+}
+</script>
+<br><br>
+</CENTER>
+</BODY>
+</HTML>
+
